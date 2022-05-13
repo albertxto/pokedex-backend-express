@@ -3,6 +3,16 @@ import Pokedex from 'pokedex-promise-v2';
 const P = new Pokedex();
 
 /**
+ * Query for pokemons
+ * @param {number} [options.limit] - Maximum number of results per page (default = 50)
+ * @param {number} [options.offset] - Current offset (default = 0)
+ * @returns {Promise<QueryResult>}
+ */
+const queryPokemons = async (options) => {
+  return Promise.resolve(P.getPokemonsList(options));
+};
+
+/**
  * Get pokemon by id
  * @param {any} id
  */
@@ -26,6 +36,7 @@ const getPokemonEvolutionChainById = async (id) => {
 };
 
 export default {
+  queryPokemons,
   getPokemonById,
   getPokemonEvolutionChainById,
 };

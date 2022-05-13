@@ -3,6 +3,7 @@ import pokedexController from '../../controllers/pokedex.controller.js';
 
 const router = express.Router();
 
+router.get('/', pokedexController.getPokemons);
 router.get('/:pokemonId', pokedexController.getPokemon);
 router.get('/evolution-chain/:evolutionChainId', pokedexController.getPokemonEvolutionChain);
 
@@ -13,6 +14,54 @@ export default router;
  * tags:
  *   name: Pokedex
  *   description: Pokedex Promises v2
+ */
+
+/**
+ * @swagger
+ * /pokedex:
+ *   get:
+ *     summary: Get all pokemons
+ *     description: Users can retrieve all pokemons.
+ *     tags: [Pokedex]
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         default: 50
+ *         description: Maximum number of pokemons
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *           minimum: 0
+ *           default: 0
+ *         description: Offset number
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 results:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Pokemon'
+ *                 page:
+ *                   type: integer
+ *                   example: 1
+ *                 limit:
+ *                   type: integer
+ *                   example: 10
+ *                 totalPages:
+ *                   type: integer
+ *                   example: 1
+ *                 totalResults:
+ *                   type: integer
+ *                   example: 1
  */
 
 /**
