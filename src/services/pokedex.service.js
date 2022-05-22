@@ -35,8 +35,18 @@ const getPokemonEvolutionChainById = async (id) => {
   return Promise.resolve(evolutionChain);
 };
 
+/**
+ * Get pokemon form by id
+ * @param {any} id
+ */
+const getPokemonFormById = async (id) => {
+  const pokemon = P.getPokemonByName(id);
+  return Promise.resolve(pokemon);
+};
+
 export default {
   queryPokemons,
   getPokemonById,
   getPokemonEvolutionChainById,
+  getPokemonFormById,
 };

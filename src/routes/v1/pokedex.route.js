@@ -6,6 +6,7 @@ const router = express.Router();
 router.get('/', pokedexController.getPokemons);
 router.get('/:pokemonId', pokedexController.getPokemon);
 router.get('/evolution-chain/:evolutionChainId', pokedexController.getPokemonEvolutionChain);
+router.get('/form/:pokemonId', pokedexController.getPokemonForm);
 
 export default router;
 

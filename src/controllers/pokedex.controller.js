@@ -26,8 +26,17 @@ const getPokemonEvolutionChain = catchAsync(async (req, res) => {
   res.send(pokemon);
 });
 
+const getPokemonForm = catchAsync(async (req, res) => {
+  const pokemon = await pokedexService.getPokemonFormById(req.params.pokemonId);
+  if (!pokemon) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Pokemon not found');
+  }
+  res.send(pokemon);
+});
+
 export default {
   getPokemons,
   getPokemon,
   getPokemonEvolutionChain,
+  getPokemonForm,
 };
