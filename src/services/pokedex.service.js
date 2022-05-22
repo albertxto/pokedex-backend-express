@@ -6,15 +6,17 @@ const P = new Pokedex();
  * Query for pokemons
  * @param {number} [options.limit] - Maximum number of results per page (default = 50)
  * @param {number} [options.offset] - Current offset (default = 0)
- * @returns {Promise<QueryResult>}
+ * @returns {Promise<P>}
  */
 const queryPokemons = async (options) => {
-  return Promise.resolve(P.getPokemonsList(options));
+  const pokemons = await P.getPokemonsList(options);
+  return pokemons;
 };
 
 /**
  * Get pokemon by id
  * @param {any} id
+ * @returns {Promise<P>}
  */
 const getPokemonById = async (id) => {
   let pokemonId = id;
@@ -29,19 +31,21 @@ const getPokemonById = async (id) => {
 /**
  * Get pokemon evolution chain by id
  * @param {number} id
+ * @returns {Promise<P>}
  */
 const getPokemonEvolutionChainById = async (id) => {
-  const evolutionChain = P.getEvolutionChainById(id);
-  return Promise.resolve(evolutionChain);
+  const evolutionChain = await P.getEvolutionChainById(id);
+  return evolutionChain;
 };
 
 /**
  * Get pokemon form by id
  * @param {any} id
+ * @returns {Promise<P>}
  */
 const getPokemonFormById = async (id) => {
-  const pokemon = P.getPokemonByName(id);
-  return Promise.resolve(pokemon);
+  const pokemonForm = await P.getPokemonByName(id);
+  return pokemonForm;
 };
 
 export default {
