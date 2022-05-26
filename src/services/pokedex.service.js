@@ -74,6 +74,14 @@ const queryFavoritePokemons = async (filter, options) => {
 };
 
 /**
+ * Get favorite pokemons count
+ * @returns {Promise<Number>}
+ */
+const getFavoritePokemonsCount = async () => {
+  return FavoritePokemon.count();
+};
+
+/**
  * Get favorite pokemon by user and pokemon
  * @param {Object} favoritePokemonBody
  * @returns {Promise<FavoritePokemon>}
@@ -112,6 +120,7 @@ export default {
   getPokemonFormById,
   createFavoritePokemon,
   queryFavoritePokemons,
+  getFavoritePokemonsCount,
   getFavoritePokemon,
   deleteFavoritePokemon,
 };

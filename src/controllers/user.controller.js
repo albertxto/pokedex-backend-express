@@ -16,6 +16,11 @@ const getUsers = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getUsersCount = catchAsync(async (_req, res) => {
+  const count = await userService.getUsersCount();
+  res.send({ totalResults: count });
+});
+
 const getUser = catchAsync(async (req, res) => {
   const user = await userService.getUserById(req.params.userId);
   if (!user) {
@@ -34,4 +39,4 @@ const deleteUser = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-export { createUser, getUsers, getUser, updateUser, deleteUser };
+export { createUser, getUsers, getUsersCount, getUser, updateUser, deleteUser };

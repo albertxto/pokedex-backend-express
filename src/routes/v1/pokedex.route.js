@@ -11,6 +11,7 @@ router.post('/favorite/:pokemonId', auth(), pokedexController.setFavoritePokemon
 router.get('/form/:pokemonId', pokedexController.getPokemonForm);
 router.get('/info/:pokemonId', pokedexController.getPokemon);
 router.get('/list', auth(), pokedexController.getFavoritePokemons);
+router.get('/list/count', auth(), pokedexController.getFavoritePokemonsCount);
 
 export default router;
 
@@ -181,6 +182,26 @@ export default router;
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
  *         $ref: '#/components/responses/Forbidden'
+ */
+
+/**
+ * @swagger
+ * /pokedex/list/count:
+ *   get:
+ *     summary: Get favorite pokemons count
+ *     description: Logged in users can fetch favorite pokemons count.
+ *     tags: [Pokedex]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Count'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
  */
 
 /**

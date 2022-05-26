@@ -29,6 +29,14 @@ const queryUsers = async (filter, options) => {
 };
 
 /**
+ * Get users count
+ * @returns {Promise<Number>}
+ */
+const getUsersCount = async () => {
+  return User.count();
+};
+
+/**
  * Get user by id
  * @param {ObjectId} id
  * @returns {Promise<User>}
@@ -82,6 +90,7 @@ const deleteUserById = async (userId) => {
 export default {
   createUser,
   queryUsers,
+  getUsersCount,
   getUserById,
   getUserByEmail,
   updateUserById,

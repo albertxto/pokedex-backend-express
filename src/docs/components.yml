@@ -1,5 +1,13 @@
 components:
   schemas:
+    Count:
+      type: object
+      properties:
+        totalResults:
+          type: number
+      example:
+        totalResults: 0
+
     FavoritePokemon:
       type: object
       properties:

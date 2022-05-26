@@ -51,6 +51,11 @@ const getFavoritePokemons = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getFavoritePokemonsCount = catchAsync(async (_req, res) => {
+  const count = await pokedexService.getFavoritePokemonsCount();
+  res.send({ totalResults: count });
+});
+
 const getFavoritePokemon = catchAsync(async (req, res) => {
   const favoritePokemon = await pokedexService.getFavoritePokemon({
     user: req.user,
@@ -83,6 +88,7 @@ export default {
   getPokemonEvolutionChain,
   getPokemonForm,
   getFavoritePokemons,
+  getFavoritePokemonsCount,
   getFavoritePokemon,
   setFavoritePokemon,
 };
