@@ -1,11 +1,14 @@
 import express from 'express';
 import pokedexController from '../../controllers/pokedex.controller.js';
+import auth from '../../middlewares/auth.js';
 
 const router = express.Router();
 
 router.get('/', pokedexController.getPokemons);
 router.get('/:pokemonId', pokedexController.getPokemon);
 router.get('/evolution-chain/:evolutionChainId', pokedexController.getPokemonEvolutionChain);
+router.get('/favorite/:pokemonId', auth(), pokedexController.getFavoritePokemon);
+router.post('/favorite/:pokemonId', auth(), pokedexController.setFavoritePokemon);
 router.get('/form/:pokemonId', pokedexController.getPokemonForm);
 
 export default router;
@@ -104,6 +107,33 @@ export default router;
  *         schema:
  *           type: string
  *         description: Evolution chain id
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/Pokemon'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /pokedex/favorite/{id}:
+ *   post:
+ *     summary: Set pokemon as favorite
+ *     description: Users can set pokemon as favorite.
+ *     tags: [Pokedex]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Pokemon id
  *     responses:
  *       "200":
  *         description: OK

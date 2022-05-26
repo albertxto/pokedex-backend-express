@@ -4,11 +4,11 @@ import config from '../config/config.js';
 const swaggerDef = {
   openapi: '3.0.0',
   info: {
-    title: 'node-express-boilerplate API documentation',
+    title: 'pokedex-backend-express API documentation',
     // version: packageJson.default.version,
     license: {
       name: 'MIT',
-      url: 'https://github.com/hagopj13/node-express-boilerplate/blob/master/LICENSE',
+      url: 'https://github.com/albertxto/pokedex-backend-express/blob/master/LICENSE.md',
     },
   },
   servers: [

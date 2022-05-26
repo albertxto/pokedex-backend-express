@@ -1,4 +1,5 @@
+import FavoritePokemon from './favoritePokemon.model.js';
 import Token from './token.model.js';
 import User from './user.model.js';
 
-export { Token, User };
+export { FavoritePokemon, Token, User };

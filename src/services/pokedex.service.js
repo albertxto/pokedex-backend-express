@@ -1,4 +1,7 @@
+import httpStatus from 'http-status';
 import Pokedex from 'pokedex-promise-v2';
+import { FavoritePokemon } from '../models/index.js';
+import ApiError from '../utils/ApiError.js';
 
 const P = new Pokedex();
 
@@ -48,8 +51,52 @@ const getPokemonFormById = async (id) => {
   return pokemonForm;
 };
 
+/**
+ * Create a favorite pokemon
+ * @param {Object} favoritePokemonBody
+ * @returns {Promise<FavoritePokemon>}
+ */
+const createFavoritePokemon = async (favoritePokemonBody) => {
+  return FavoritePokemon.create(favoritePokemonBody);
+};
+
+/**
+ * Get favorite pokemon
+ * @param {Object} favoritePokemonBody
+ * @returns {Promise<FavoritePokemon>}
+ */
+const getFavoritePokemon = async ({ user, pokemon }) => {
+  return FavoritePokemon.findOne({ user, pokemon });
+};
+
+/**
+ * Get favorite pokemon by id
+ * @param {ObjectId} favoritePokemonId
+ * @returns {Promise<FavoritePokemon>}
+ */
+const getFavoritePokemonById = async (id) => {
+  return FavoritePokemon.findById(id);
+};
+
+/**
+ * Delete favorite pokemon by id
+ * @param {ObjectId} favoritePokemonId
+ * @returns {Promise<FavoritePokemon>}
+ */
+const deleteFavoritePokemon = async (favoritePokemonId) => {
+  const favoritePokemon = await getFavoritePokemonById(favoritePokemonId);
+  if (!favoritePokemon) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Favorite pokemon not found');
+  }
+  await favoritePokemon.remove();
+  return favoritePokemon;
+};
+
 export default {
+  createFavoritePokemon,
+  deleteFavoritePokemon,
   queryPokemons,
+  getFavoritePokemon,
   getPokemonById,
   getPokemonEvolutionChainById,
   getPokemonFormById,
