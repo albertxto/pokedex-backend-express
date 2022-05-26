@@ -1,5 +1,24 @@
 components:
   schemas:
+    FavoritePokemon:
+      type: object
+      properties:
+        user:
+          type: string
+        pokemon:
+          type: number
+      example:
+        user: 5ebac534954b54139806c112
+        pokemon: 1
+
+    IsFavoritePokemon:
+      type: object
+      properties:
+        isFavorite:
+          type: boolean
+      example:
+        isFavorite: true
+
     Pokemon:
       type: object
       properties:

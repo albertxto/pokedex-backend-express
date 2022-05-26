@@ -61,7 +61,20 @@ const createFavoritePokemon = async (favoritePokemonBody) => {
 };
 
 /**
- * Get favorite pokemon
+ * Query for favorite pokemons
+ * @param {Object} options - Query options
+ * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
+ * @param {number} [options.limit] - Maximum number of results per page (default = 10)
+ * @param {number} [options.page] - Current page (default = 1)
+ * @returns {Promise<QueryResult>}
+ */
+const queryFavoritePokemons = async (filter, options) => {
+  const favoritePokemons = await FavoritePokemon.paginate(filter, options);
+  return favoritePokemons;
+};
+
+/**
+ * Get favorite pokemon by user and pokemon
  * @param {Object} favoritePokemonBody
  * @returns {Promise<FavoritePokemon>}
  */
@@ -93,11 +106,12 @@ const deleteFavoritePokemon = async (favoritePokemonId) => {
 };
 
 export default {
-  createFavoritePokemon,
-  deleteFavoritePokemon,
   queryPokemons,
-  getFavoritePokemon,
   getPokemonById,
   getPokemonEvolutionChainById,
   getPokemonFormById,
+  createFavoritePokemon,
+  queryFavoritePokemons,
+  getFavoritePokemon,
+  deleteFavoritePokemon,
 };

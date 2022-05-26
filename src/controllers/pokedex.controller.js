@@ -34,6 +34,23 @@ const getPokemonForm = catchAsync(async (req, res) => {
   res.send(pokemon);
 });
 
+const getFavoritePokemons = catchAsync(async (req, res) => {
+  const payload = {
+    user: req.user._id,
+    pokemon: null,
+  };
+  if (req.query.pokemon) {
+    payload.pokemon = req.query.pokemon;
+  } else {
+    delete payload.pokemon;
+  }
+
+  const filter = pick(payload, ['user', 'pokemon']);
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await pokedexService.queryFavoritePokemons(filter, options);
+  res.send(result);
+});
+
 const getFavoritePokemon = catchAsync(async (req, res) => {
   const favoritePokemon = await pokedexService.getFavoritePokemon({
     user: req.user,
@@ -65,6 +82,7 @@ export default {
   getPokemon,
   getPokemonEvolutionChain,
   getPokemonForm,
+  getFavoritePokemons,
   getFavoritePokemon,
   setFavoritePokemon,
 };

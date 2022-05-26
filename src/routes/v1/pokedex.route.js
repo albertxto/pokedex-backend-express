@@ -5,11 +5,12 @@ import auth from '../../middlewares/auth.js';
 const router = express.Router();
 
 router.get('/', pokedexController.getPokemons);
-router.get('/:pokemonId', pokedexController.getPokemon);
 router.get('/evolution-chain/:evolutionChainId', pokedexController.getPokemonEvolutionChain);
 router.get('/favorite/:pokemonId', auth(), pokedexController.getFavoritePokemon);
 router.post('/favorite/:pokemonId', auth(), pokedexController.setFavoritePokemon);
 router.get('/form/:pokemonId', pokedexController.getPokemonForm);
+router.get('/info/:pokemonId', pokedexController.getPokemon);
+router.get('/list', auth(), pokedexController.getFavoritePokemons);
 
 export default router;
 
@@ -120,10 +121,74 @@ export default router;
 
 /**
  * @swagger
+ * /pokedex/list:
+ *   get:
+ *     summary: Get all favorite pokemons
+ *     description: Logged in users can fetch only their own favorite pokemons information.
+ *     tags: [Pokedex]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: pokemon
+ *         schema:
+ *           type: number
+ *         description: Pokemon id
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *         description: sort by query in the form of field:desc/asc (ex. pokemon:asc)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *         default: 10
+ *         description: Maximum number of favorite pokemons
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           default: 1
+ *         description: Page number
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 results:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/FavoritePokemon'
+ *                 page:
+ *                   type: integer
+ *                   example: 1
+ *                 limit:
+ *                   type: integer
+ *                   example: 10
+ *                 totalPages:
+ *                   type: integer
+ *                   example: 1
+ *                 totalResults:
+ *                   type: integer
+ *                   example: 1
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ */
+
+/**
+ * @swagger
  * /pokedex/favorite/{id}:
- *   post:
- *     summary: Set pokemon as favorite
- *     description: Users can set pokemon as favorite.
+ *   get:
+ *     summary: Get a favorite pokemon
+ *     description: Logged in users can fetch only their own favorite pokemon information.
  *     tags: [Pokedex]
  *     security:
  *       - bearerAuth: []
@@ -140,7 +205,30 @@ export default router;
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#/components/schemas/Pokemon'
+ *                $ref: '#/components/schemas/IsFavoritePokemon'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ *
+ *   post:
+ *     summary: Set or unset pokemon as favorite
+ *     description: Users can set pokemon as favorite or unset pokemon from favorite.
+ *     tags: [Pokedex]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Pokemon id
+ *     responses:
+ *       "204":
+ *         description: No content
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
  *       "404":
  *         $ref: '#/components/responses/NotFound'
  */
