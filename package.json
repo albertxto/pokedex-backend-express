@@ -4,16 +4,13 @@
   "description": "Create a Node.js app for building production-ready RESTful APIs using Express, by running one command",
   "bin": "bin/createNodejsApp.js",
   "type": "module",
-  "exports": "./src/index.js",
+  "exports": "./index.js",
   "repository": "https://github.com/albertxto/pokedex-backend-express.git",
   "author": "Albert Prawono <albertxto@gmail.com>",
   "license": "MIT",
-  "engines": {
-    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
-  },
   "scripts": {
-    "start": "cross-env NODE_ENV=production node src/index.js",
-    "dev": "cross-env NODE_ENV=development nodemon src/index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "test:watch": "jest -i --watchAll",
     "coverage": "jest -i --coverage",
